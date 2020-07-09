@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <div class="mx-auto max-w-5xl text-center bg-gray-100 pt-5 rounded-lg mt-12">
+        <h2 class="font-bold text-lg text-black mt-3">Results</h2>
+        <div class="text-6xl">{{ email }}</div>
+        <div class="text-gray-400 font-mono mb-10">Password is : {{ password }}</div>
+        <div class="pb-8">
+            <a class="bg-indigo-500 px-4 py-2 mb-10 rounded-full font-bold text-white hover:bg-indigo-700 shadow-2xl" href="{{ url_for('home') }}">Home</a>
+        </div>
+    </div>
+
+
+{% endblock %}

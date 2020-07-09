@@ -1,0 +1,44 @@
+{% macro example_render(field) -%}
+<div>
+    {% set with_label = kwargs.pop('with_label', False) %}
+
+    {% set default_input_class = 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %}
+
+    {% if with_label %}
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="{{ field.id }}">
+            {{ field.label.text }}{% if field.flags.required %} *{% endif %}:
+        </label>
+    {% endif %}
+
+    {% set class_ = kwargs.pop('class_', '') %}  {# append classes set within template #}
+
+    {% if field.flags.required %}
+        {% set class_ = class_ + ' required' %}
+    {% endif %}
+
+    {#
+        Logic based on field-types-- e.g. a radio, or file field might have diff HTML to a text field
+        Just addressing two for now...
+    #}
+
+    {% if field.type in ('StringField', 'PasswordField') %}
+        {# Highlight the background red if we have an error...? #}
+
+        {% if field.errors %}
+            {% set error_class = "bg-red-400 border-2 border-black text-white" %}
+        {% else %}
+            {% set error_class = "" %}
+        {% endif %}
+
+        {{ field(class_=class_ + default_input_class + ' ' + error_class, **kwargs) }}
+
+        {# spit out a error message in a div too? #}
+        {% if field.errors %}
+            <div class="bg-red-200 font-italic font-bold py-4 px-2 rounded mt-2">
+                {{ "<br />".join(field.errors) }}
+            </div>
+        {% endif %}
+    {% endif %}
+</div>
+
+{%- endmacro %}

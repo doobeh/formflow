@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% import '_helpers.html' as helpers %}
+
+
+{% block body %}
+    <form method="post">
+    <div class="max-w-2xl m-auto">
+        {{ form.hidden_tag() }}
+        {# Probably should just default to the with_label being True... #}
+        {{ helpers.example_render(form.email, with_label=True) }}
+        {{ helpers.example_render(form.password, with_label=True) }}
+
+        <button class="mt-4 bg-indigo-500 text-white font-bold py-2 px-8 rounded shadow-xl" type="submit">Go go!</button>
+    </div>
+
+    </form>
+
+{% endblock %}
